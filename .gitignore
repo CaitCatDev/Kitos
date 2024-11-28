@@ -1,0 +1,10 @@
+*.o
+src/pci-class.c
+includes/pci-class.h
+
+pci.ids
+pci-gen
+*.iso
+*.img
+*.elf
+tmp
