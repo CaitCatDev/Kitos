@@ -5,7 +5,7 @@
 #define UINT32_FULL_MASK 0xffffffffU
 #define UINT64_FULL_MASK 0xffffffffffffffffULL
 
-#define NULL (void*)0;
+#define NULL (void*)0
 
 
 typedef uint64_t reg_t;

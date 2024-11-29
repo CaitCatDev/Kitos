@@ -11,13 +11,15 @@
 	.4byte 0x10
 	.4byte 0x100000000 - 0xE85250e6
 
+	/*
 	.2byte 5
 	.2byte 0
 	.4byte 20
 	.4byte 1024
 	.4byte 712
 	.4byte 24
-.align 8	
+*/
+	.align 8	
 	.2byte 0
 	.2byte 0
 	.4byte 8
@@ -192,7 +194,6 @@ _higher_half_start:
 	movabs $pml4,%rsi
 	xor %rax,%rax
 	mov %rax,(%rsi)
-
 	call multiboot2_cinit
 
 halt_loop:

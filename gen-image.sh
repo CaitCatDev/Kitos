@@ -24,6 +24,11 @@ if [ ! -f ./tmp/boot/grub/grub.cfg ]; then
   echo "    multiboot2 /boot/kitos.elf" >> ./tmp/boot/grub/grub.cfg
   echo "    boot" >> ./tmp/boot/grub/grub.cfg
 	echo "}" >> ./tmp/boot/grub/grub.cfg
+
+	echo "menuentry \"kitos-vga\" {" >> ./tmp/boot/grub/grub.cfg
+  echo "    multiboot2 /boot/kitos.elf -vga" >> ./tmp/boot/grub/grub.cfg
+  echo "    boot" >> ./tmp/boot/grub/grub.cfg
+	echo "}" >> ./tmp/boot/grub/grub.cfg
 fi
 
 cp $1 ./tmp/boot/kitos.elf
