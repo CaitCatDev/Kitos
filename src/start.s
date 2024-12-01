@@ -38,6 +38,7 @@ _start:
 	mov $_not_multiboot2_error_string - KERNEL_VIRT,%esi
 	cmp $0x36d76289,%eax
 	jne _puts32
+	
 
 	lgdt _GDTR - KERNEL_VIRT
 
@@ -80,7 +81,7 @@ _is_x86_64: #Check if this CPU is 64 or just 32bit
 
 _paging_init32:
 	xor %eax,%eax
-	mov $0x1200,%ecx
+	mov $0x1000,%ecx
 	mov $pml4 - KERNEL_VIRT,%edi
 	rep stosl
 	mov $pml4 - KERNEL_VIRT,%edi
@@ -186,7 +187,7 @@ _higher_half_start:
 	mov %ax,%es
 	mov %ax,%gs
 	mov %ax,%fs
-
+	
 	push %rdi
 	callq idt_init
 	pop %rdi

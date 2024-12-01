@@ -2,9 +2,11 @@
 
 #include <stdint.h>
 
+extern uint64_t KERNEL_VIRT;
+
 /*TODO IMPLEMENT THIS*/
-#define PHYS_TO_VIRT(ptr)
-#define VIRT_TO_PHYS(ptr) 
+#define PHYS_TO_VIRT(ptr) (void*)((uint64_t)ptr | (uint64_t)&KERNEL_VIRT)
+#define VIRT_TO_PHYS(ptr) (void*)((uint64_t)ptr & ~((uint64_t)&KERNEL_VIRT))
 
 #define X86_PAE_PAGE_NOEXEC	(1 << 63)
 #define X86_PAE_PAGE_PRESENT (1)
@@ -18,5 +20,8 @@
 #define X86_PAE_PAGE_ACCESSED (1 << 5)
 #define X86_PAE_PAGE_DIRTY (1 << 6)
 
+#define X86_64_PAE_ADDRESS_MASK 0x000ffffffffff000ULL
 
 typedef uint64_t page_t;
+
+int mmap_page(void *phy, void *virt);

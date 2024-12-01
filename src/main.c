@@ -80,8 +80,10 @@ void vga_clear_screen(uint8_t color) {
 }
 
 
+int vmm_init();	
+
 void cmain() {
-	
+	mmap_page((void*)0xb8000, (void*)0xdead0000);
 	return;
 }
 
@@ -94,15 +96,6 @@ static const char *mmap_type_to_str(uint32_t type) {
 		default: return "Unknown";
 	}
 }
-
-/*Global so asm can set these initially*/
-uint64_t pml4[512] __attribute__((aligned(0x1000)));
-uint64_t pdp[512] __attribute__((aligned(0x1000)));
-uint64_t pd[512] __attribute__((aligned(0x1000)));
-uint64_t pt1[512] __attribute__((aligned(0x1000)));
-uint64_t pt2[512] __attribute__((aligned(0x1000)));
-
-extern uint64_t KERNEL_VIRT;
 
 void cinit_cmdline(char *cmdline) {
 	char *token = NULL;
