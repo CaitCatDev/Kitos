@@ -7,7 +7,10 @@
 
 #define NULL (void*)0
 
+#define UINT32_TO_POINTER(u) (void*)((uintptr_t)u)
+#define UINT64_TO_POINTER(u) (void*)((uintptr_t)u)
+
 
 typedef uint64_t reg_t;
-typedef uint64_t phy_address;
-typedef uint64_t virt_address;
+typedef uintptr_t phy_address;
+typedef uintptr_t virt_address;

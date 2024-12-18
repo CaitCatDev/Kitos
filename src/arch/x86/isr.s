@@ -54,7 +54,7 @@ isr_no_error 28
 isr_error 29
 isr_error 30
 isr_no_error 31
-
+isr_no_error 32
 
 isr_common:
 	pushq %rbp
@@ -94,7 +94,7 @@ isr_common:
 	popq %rbx
 	popq %rax
 	popq %rbp
-	add $0x16,%rsp
+	add $0x10,%rsp
 	iretq
 
 .data
@@ -131,3 +131,4 @@ isr_ptr 28
 isr_ptr 29
 isr_ptr 30
 isr_ptr 31
+isr_ptr 32

@@ -15,7 +15,7 @@ void idt_init() {
 
 	asm __volatile__("lidt %0" : : "m" (idtr));
 
-	for(uint32_t i = 0; i < 32; i++) {
+	for(uint32_t i = 0; i < 33; i++) {
 		idt[i].segment = 0x28;
 		idt[i].attributes = 0x8e;
 		idt[i].offset_hig = isr_functions[i] >> 32;

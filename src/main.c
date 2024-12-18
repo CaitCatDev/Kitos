@@ -1,3 +1,4 @@
+#include "drivers/acpi.h"
 #include <boot/multiboot2.h>
 #include <stdint.h>
 #include <kstdio.h>
@@ -80,10 +81,8 @@ void vga_clear_screen(uint8_t color) {
 }
 
 
-int vmm_init();	
 
 void cmain() {
-	mmap_page((void*)0xb8000, (void*)0xdead0000);
 	return;
 }
 
@@ -148,6 +147,7 @@ void multiboot2_cinit(multiboot2_boot_info_t *info) {
 			case MULTIBOOT2_MEMOMAP_TAG: {
 				multiboot2_mmap_t *mmap = (multiboot2_mmap_t*)tag;
 				pmm_init_mb2_mmap(info, mmap);
+				vmm_init(mmap);
 				break;
 			}
 		}
@@ -204,6 +204,11 @@ void multiboot2_cinit(multiboot2_boot_info_t *info) {
 				multiboot2_fbinfo_t *info = (multiboot2_fbinfo_t*)tag;
 				kprintf("\tBase: %p\n\tRes: %dx%d\n\tType: %d\n\tBPP: %d\n\tPITCH: %d\n", info->base,
 					info->width, info->height, info->type, info->bpp, info->pitch);
+				break;
+			}
+			case MULTIBOOT2_ACPI_RSDP_TAG: {
+				multiboot2_rsdp_t *rsdp = (multiboot2_rsdp_t*)tag;
+				acpi_init((acpi_rsdp_t*)rsdp->rsdp);
 				break;
 			}
 		}

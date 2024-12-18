@@ -53,12 +53,10 @@ void *pmm_allocate_block() {
 			if(!(bitmap[i] & (1 << j))) {
 				uint64_t out = i * 32 * 0x1000 + (0x1000 * j);
 				pmm_bitmap_reserve_block((void*)out);
-				kprintf("Allocated %p\n", out);
 				return (void*)out;
 			}
 		}
 	}
-	kprintf("I: %ld\n", i);
 	return NULL;
 }
 
@@ -103,6 +101,4 @@ void pmm_init_mb2_mmap(multiboot2_boot_info_t *bi, multiboot2_mmap_t *mmap) {
 	pmm_reserve_range((void*)pkstart, (void*)pkend);
 	pmm_reserve_range((void*)pbistart, (void*)pbistart + bi->size);
 	pmm_reserve_range(VIRT_TO_PHYS(bitmap), (void*)((uint64_t)VIRT_TO_PHYS(bitmap) + memory_required / 8));
-	pmm_reserve_range((void*)0x0000, (void*)0x00000000bffe0000);
-
 }

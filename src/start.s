@@ -114,7 +114,7 @@ _paging_init32:
 	mov $pt1 - KERNEL_VIRT,%edi
 	xor %ebx,%ebx
 	orl $0x3,%ebx
-	mov $1024,%ecx
+	mov $512,%ecx
 
 	.fill_tables:
 	mov %ebx,(%edi)
@@ -122,6 +122,16 @@ _paging_init32:
 	add $0x1000,%ebx
 	loop .fill_tables
 	
+	mov $pt2 - KERNEL_VIRT,%edi
+	mov $512,%ecx
+
+	.fill_tables2:
+	mov %ebx,(%edi)
+	add $8,%edi
+	add $0x1000,%ebx
+	loop .fill_tables2
+	
+
 	mov $0x20,%eax
 	mov %eax,%cr4
 
@@ -131,7 +141,6 @@ _paging_init32:
 	wrmsr
 
 	pop %edi
-
 	mov %cr0,%eax
 	or $1<<31,%eax
 	mov %eax,%cr0
@@ -198,7 +207,6 @@ _higher_half_start:
 	call multiboot2_cinit
 
 halt_loop:
-	cli
 	hlt
 	jmp halt_loop
 
